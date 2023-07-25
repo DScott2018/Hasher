@@ -5,3 +5,4 @@ When running this script, you will be asked to input data to be hashed and the a
 noSalt will output data hashed without a salt, meaning this data could be vulnerable to a rainbow table. For demonstration purposes, this script has been included to show the difference between salted and un-salted hashes.
 
 Salted will output the data hashed with a salt. This hash will be much more difficult to determine the original data. Rainbow tables should not work against this type of hash function.
+The salt can be input within the parameters of the method or left as 'None'. If it is left as none, then the 'os' module will generate a random 16 bit salt to be appended to the end of the data to be hashed.
