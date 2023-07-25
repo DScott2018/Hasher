@@ -1,0 +1,32 @@
+import hashlib
+
+
+def hashData(data, algorithm="sha256"):
+    try:
+        # Convert the data to bytes (hash functions require bytes)
+        data_bytes = data.encode()
+
+        # Select the hashing algorithm
+        hash_obj = hashlib.new(algorithm)
+
+        # Update the hash object with the data bytes
+        hash_obj.update(data_bytes)
+
+        # Get the hexadecimal representation of the hash
+        hashed_data = hash_obj.hexdigest()
+
+        return hashed_data
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
+
+if __name__ == "__main__":
+    data_to_hash = input("Enter the data to hash: ")
+    hash_algorithm = input("Enter the hash algorithm (default is sha256): ").lower()
+
+    if not hash_algorithm:
+        hash_algorithm = "sha256"
+
+    hashed_data = hashData(data_to_hash, hash_algorithm)
+    if hashed_data:
+        print(f"Hashed data ({hash_algorithm}): {hashed_data}")
