@@ -1,0 +1,36 @@
+import hashlib
+import os
+
+def hash_data(data, salt=None, algorithm="sha256"):
+    try:
+        # Convert the data to bytes (hash functions require bytes)
+        data_bytes = data.encode()
+
+        # Generate a random salt if not provided
+        if salt is None:
+            salt = os.urandom(16)  # Use a 16-byte (128-bit) random salt
+
+        # Concatenate the salt and data bytes
+        data_with_salt = salt + data_bytes
+
+        # Select the hashing algorithm
+        hash_obj = hashlib.new(algorithm)
+
+        # Update the hash object with the data and salt
+        hash_obj.update(data_with_salt)
+
+        # Get the hexadecimal representation of the hash
+        hashed_data = hash_obj.hexdigest()
+
+        return (hashed_data, salt)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None, None
+
+if __name__ == "__main__":
+    data_to_hash = input("Enter the data to hash: ")
+    hashed_data, salt = hash_data(data_to_hash)
+
+    if hashed_data and salt:
+        print(f"Hashed data (with salt): {hashed_data}")
+        print(f"Salt: {salt.hex()}")
